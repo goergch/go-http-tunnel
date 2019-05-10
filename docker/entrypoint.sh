@@ -22,19 +22,21 @@ then
     -out "$ROOT_NAME.key" \
     "$RSA_KEY_NUMBITS"
 
+  echo "[i] Generate $ROOT_NAME.crt 2"
   openssl req \
     -new \
     -key "$ROOT_NAME.key" \
     -out "$ROOT_NAME.csr" \
     -subj "$ROOT_SUBJ"
 
+  echo "[i] Generate $ROOT_NAME.crt 3"
+
   openssl req \
     -x509 \
     -key "$ROOT_NAME.key" \
     -in "$ROOT_NAME.csr" \
     -out "$ROOT_NAME.crt" \
-    -days "$DAYS" \
-    -subj "$ROOT_SUBJ"
+    -days "$DAYS" 
 
   # copy certificate to volume
   cp "$ROOT_NAME.crt" "$CERT_DIR"
